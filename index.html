@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Analysis Tool</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Audio Analysis Tool</h1>
+    <form id="uploadForm" method="POST" action="/upload" enctype="multipart/form-data">
+        <label for="audioFile">Upload Audio File:</label>
+        <input type="file" id="audioFile" name="audioFile" accept="audio/*">
+        <button type="submit">Analyze</button>
+    </form>
+    <div id="results"></div>
+    <script src="script.js"></script>
+</body>
+</html>
