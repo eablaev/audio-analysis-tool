@@ -13,7 +13,13 @@
         <input type="file" id="audioFile" name="audioFile" accept="audio/*">
         <button type="submit">Analyze</button>
     </form>
-    <div id="results"></div>
+    <div id="results">
+        {% if plot_filename %}
+            <h2>Mel Spectrogram</h2>
+            <img src="{{ url_for('static', filename='uploads/mel_spectrogram.png') }}" alt="Mel Spectrogram">
+
+        {% endif %}
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
