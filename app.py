@@ -1,49 +1,83 @@
+import numpy as np
+import essentia.standard as es
+
 from flask import Flask, request, jsonify, render_template
 import os
-import librosa
 from werkzeug.utils import secure_filename
-import matplotlib
-matplotlib.use('Agg')  # Use a non-interactive backend
-import matplotlib.pyplot as plt
 import numpy as np
-
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = os.path.join('static', 'uploads')  # Corrected path inside static folder
 
 
+def find_BPM(audio):
+    # Apply a low-pass filter to remove high-frequency noise (optional)
+    low_pass_filter = es.LowPass(cutoffFrequency=300.0)  # Adjust cutoff frequency as needed
+    audio_filtered = low_pass_filter(audio)
+
+    # Rhythm extractor
+    rhythm_extractor = es.RhythmExtractor2013(method="multifeature")
+    bpm, confidence, _, _, _ = rhythm_extractor(audio_filtered)
+
+    # Check if bpm is an array and take the first element
+    if isinstance(bpm, np.ndarray):
+        for value in bpm:
+            print(f'values:${value}')
+        bpm_value = bpm[0]
+    else:
+        bpm_value = bpm
+
+    # Check if confidence is an array and take the first element
+    if isinstance(confidence, np.ndarray):
+        confidence_value = confidence[0]
+    else:
+        confidence_value = confidence
+
+    # Print the estimated BPM and confidence, along with a warning if confidence is low
+    if confidence_value < 0.5:  # Adjust threshold as necessary
+        print(f"Warning: Low confidence in BPM estimation: {confidence_value:.2f}")
+
+    print(f"Estimated BPM: {bpm_value:.2f}, Confidence: {confidence_value:.2f}")
+    return bpm_value
+
+def find_Key(audio):
+    # Apply a low-pass filter to remove high-frequency noise (optional)
+    low_pass_filter = es.LowPass(cutoffFrequency=600.0)  # Adjust cutoff frequency as needed
+    audio_filtered = low_pass_filter(audio)
+    key_extractor = es.KeyExtractor()
+    key, scale, confidence = key_extractor(audio_filtered)
+
+    print(f'Key is: {key}, Scale is: {scale}, Confidence: {confidence:.2f}')
+    return key, scale
 
 def analyze_audio(file_path):
-    y, sr = librosa.load(file_path)
+    # Load the audio file
+    loader = es.MonoLoader(filename=file_path)
+    audio = loader()
 
-    spectrum = librosa.feature.melspectrogram(y=y, sr=sr)
-    db_spectrum = librosa.amplitude_to_db(spectrum, ref=np.max)
+    # Optional: Normalize the audio to improve consistency
+    audio = audio / np.max(np.abs(audio))  # Normalize to [-1, 1]
+    tempo = find_BPM(audio)
+    root, scale = find_Key(audio)
 
-     # Visualize the Mel spectrogram
-    plt.figure(figsize=(10, 4))
-    plt.imshow(db_spectrum, aspect='auto', origin='lower')
-    plt.colorbar(format='%+2.0f dB')
-    plt.title('Mel Spectrogram')
-    plt.xlabel('Time (s)')
-    plt.ylabel('Mel Frequency')
+    key = f'{root} {scale}'
+
+    return tempo, key
+
     
-    # Show the plot
-   # Save the plot to a file instead of showing it
-    plot_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'mel_spectrogram.png')
-    print(plot_filename)
-    plt.tight_layout()
-    plt.savefig(plot_filename)
-    plt.close()  # Close the plot to free up memory
 
-
-    return db_spectrum, plot_filename 
-
-
+# # Test the function with an audio file
+# file_path = 'static/uploads/96.mp3'
+# bpm, key = analyze_audio(file_path)
+# print("Detected BPM:", round(bpm))
+# print("Detected Key:", key)
 
 
 @app.route('/')
 def home():
     return render_template('index.html')
+
+
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -67,10 +101,11 @@ def upload_file():
         filename = secure_filename(file.filename)  # Sanitize the filename
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(file_path)
-        db_spectrum, plot_filename = analyze_audio(file_path)
-        return render_template('index.html', plot_filename=plot_filename)
+        tempo, key_name = analyze_audio(file_path)
+        return render_template('index.html', tempo=tempo, key=key_name)
     else:
         return 'Invalid file type. Please upload an MP3 or WAV file.', 400  # Invalid file type response
 
 if __name__ == '__main__':
     app.run(debug=True)
+
