@@ -102,7 +102,8 @@ def upload_file():
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(file_path)
         tempo, key_name = analyze_audio(file_path)
-        return render_template('index.html', tempo=tempo, key=key_name)
+        print("Inside py:", tempo, key_name)
+        return jsonify({'tempo': tempo, 'key': key_name})
     else:
         return 'Invalid file type. Please upload an MP3 or WAV file.', 400  # Invalid file type response
 

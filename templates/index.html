@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audio Analysis Tool</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
 </head>
 <body>
     <h1>Audio Analysis Tool</h1>
@@ -13,15 +13,9 @@
         <input type="file" id="audioFile" name="audioFile" accept="audio/*">
         <button type="submit">Analyze</button>
     </form>
-    <div id="results">
-        {% if tempo %}
-            <h2>BPM: {{ tempo }}</h2>
-        {% endif %}
-        {% if key %}
-            <h2>Key: {{ key }}</h2>
-        {% endif %}
-    </div>
+    <div id="result"></div>
     
-    <script src="script.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
 </body>
 </html>
