@@ -4,16 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audio Analysis Tool</title>
-    <!-- <link rel="stylesheet" href="style.css"> -->
+   <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
-    <h1>Audio Analysis Tool</h1>
-    <form id="uploadForm" method="POST" action="/upload" enctype="multipart/form-data">
-        <label for="audioFile">Upload Audio File:</label>
-        <input type="file" id="audioFile" name="audioFile" accept="audio/*">
-        <button type="submit">Analyze</button>
-    </form>
-    <div id="result"></div>
+    <div class="topContainer">
+        <h1 class="header">Audio Analysis Tool</h1>
+    </div>
+    <div class="centerContainer">
+        <form id="uploadForm" class="uploadForm" method="POST" action="/upload" enctype="multipart/form-data">
+            <label for="audioFile">Upload Audio File:</label>
+            <div class="file-upload-wrapper">
+                <input type="file" id="audioFile" name="audioFile" accept="audio/*">
+                <div class="uploadFileBtn">UPLOAD</div>
+
+            </div>
+        
+        </form>
+        <div id="result" class="result"></div>
+
+    </div>
+    
     
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 
