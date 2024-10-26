@@ -64,13 +64,6 @@ def analyze_audio(file_path):
 
     return tempo, key
 
-    
-
-# # Test the function with an audio file
-# file_path = 'static/uploads/96.mp3'
-# bpm, key = analyze_audio(file_path)
-# print("Detected BPM:", round(bpm))
-# print("Detected Key:", key)
 
 
 @app.route('/')

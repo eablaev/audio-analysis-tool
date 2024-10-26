@@ -1,10 +1,16 @@
-
-:root{
-    --main-color: #3498db;
-    --bg-color-one:#292a2c;
-    --secondary-color: #2ecc71;
+:root {
+    --main-color: #0073e6; /* Calming blue for primary elements */
+    --secondary-color: #4CAF50; /* A vibrant, yet balanced green */
+    
+    --bg-color-one: #f5f7fa; /* Light off-white for background */
+    --bg-color-two: #e6eef4; /* Subtle light blue background shade */
+    --bg-color-three: #cce1f2; /* Softer blue accent */
+    
     --font-size: 16px;
-    --main-font: Arial, Helvetica, sans-serif;
+    --main-font: 'Segoe UI', Tahoma, Geneva, sans-serif; /* Clean and modern font choice */
+
+    --row-height: 9vh;
+    --border-radius: 6px; /* Slightly rounded for a modern look */
 }
 
 *, *::before, *::after {
@@ -20,7 +26,12 @@ body {
     font-family: var(--main-font);
     font-size: 16px;
     line-height: 1.5;
-    color: var(--main-color)
+    color: var(--main-color);
+    background-color: var(--bg-color-one);
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 html, body {
@@ -29,7 +40,8 @@ html, body {
 }
 
 
-.topContainer, .centerContainer {
+
+.topContainer, .centerContainer, .footer {
     /* border: 1px solid red; */
     display: flex;
     flex-direction: column;
@@ -38,9 +50,23 @@ html, body {
    
 }
 
+.topContainer {
+    padding: 4vh 0;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: var(--bg-color-two);
+    border-bottom: 2px solid var(--bg-color-three);
+}
+.topContainer > h1 {
+    font-weight: 500;
+    
+}
+
 .centerContainer {
     min-height: 50vh;
     gap:6vh;
+    justify-content:flex-start;
 }
 
 .uploadForm {
@@ -75,8 +101,8 @@ input[type="file"] {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid var(--bg-color-three);
+    border-radius: var(--border-radius);
     padding: auto;
     z-index: -1;
     position: absolute;
@@ -88,26 +114,61 @@ input[type="file"] {
     
 }
 
-button {
-    padding: 6px 12px;
-    background-color: var(--main-color);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
 
-button:hover, 
 input[type="file"]:hover +.uploadFileBtn {
     /* background-color: darken(var(--main-color), 90%); Darker shade on hover */
     background-color: var(--bg-color-one);
+    border-color: var(--main-color);
 }
  
 
 .result {
     display: flex;
-    border: 1px solid var(--main-color);
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--border-radius);
     width: 98%;
+    background-color: var(--bg-color-three);  
+    padding: 3px;
+}
+
+.result:empty {
+    padding: none;
+}
+
+.resultRow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px;
+    border: 1px solid var(--bg-color-two);
+    border-radius: var(--border-radius);
+    width: 100%;
+    height: var(--row-height);
+    /* background-color: var(--bg-color-one); */
+    background-color: var(--bg-color-two);
+    /* color: white; */
+   
+}
+
+.loadingSpinner {
+    display: flex;
+    justify-content: center;
+    background-color: var(--bg-color-two);
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
+    padding: 5px;
+    
+}
+  
+.spinner {
+    border: 4px solid var(--bg-color-three);
+    border-left-color: var(--main-color);
+    border-radius: 50%;
+    width: calc(var(--row-height)*.9);
+    height: calc(var(--row-height)*.9);
+    animation: spin 1s linear infinite;
 }
 
 .songName, 
@@ -116,10 +177,44 @@ input[type="file"]:hover +.uploadFileBtn {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: 200;
 }
 .songName {
     width: 50%;
+    /* border: 1px solid red; */
+   justify-content: left;
 }
 .songBpm {
     width: 25%;
 }
+
+.footer {
+     background-color: var(--bg-color-two);
+     padding: 4vh 0;
+}
+
+a {
+    display: inline-block; 
+    color: inherit; /* Inherits text color from its parent */
+    text-decoration: none; /* Removes underline */
+    outline: none; /* Removes outline */
+    background: none; /* Removes any default background */
+    border: none; /* Removes border if any */
+    padding: 0; /* Removes padding */
+    margin: 0; /* Removes margin */
+    transition: transform 0.3s ease; /* Smooth transition */
+  
+}
+.footer a:hover {
+ 
+    transform: scale(1.1)
+   
+    /* font-size: 4em; */
+}
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  

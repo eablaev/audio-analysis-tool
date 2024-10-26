@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="topContainer">
-        <h1 class="header">Audio Analysis Tool</h1>
+        <h1 class="header">BPM+KEY</h1>
     </div>
     <div class="centerContainer">
         <form id="uploadForm" class="uploadForm" method="POST" action="/upload" enctype="multipart/form-data">
@@ -16,14 +16,18 @@
             <div class="file-upload-wrapper">
                 <input type="file" id="audioFile" name="audioFile" accept="audio/*">
                 <div class="uploadFileBtn">UPLOAD</div>
-
             </div>
+            
+           
         
         </form>
         <div id="result" class="result"></div>
+        
 
     </div>
-    
+    <div class="footer">
+        <h2><a href="https://lustforsounds.com" target="_blank" rel="noopener noreferrer">lustforsounds studio</a></h2>
+     </div>
     
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 

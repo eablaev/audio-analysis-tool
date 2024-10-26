@@ -5,16 +5,37 @@ document.getElementById('audioFile').addEventListener('change', function() {
 
     const form = document.getElementById('uploadForm');
     const formData = new FormData(form); // Get form data
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = ''; // Clear previous results
 
+    const loadingSpinner = document.createElement('div');
+    loadingSpinner.id = 'loadingSpinner';
+    loadingSpinner.className = 'loadingSpinner';
+    loadingSpinner.style.display = 'flex'; 
+
+    const spinner = document.createElement('div');
+    spinner.className = 'spinner';
+    loadingSpinner.appendChild(spinner); 
+
+    const loadingText = document.createElement('p');
+    loadingText.textContent = 'Analyzing your file, please wait...';
+    // loadingSpinner.appendChild(loadingText); 
+
+    resultDiv.appendChild(loadingSpinner)
+   
+    
     fetch('/upload', {
         method: 'POST',
         body: formData
     })
     .then(response => response.json())
     .then(data => {
-        const resultDiv = document.getElementById('result');
+       
         resultDiv.innerHTML = ''; // Clear previous results
 
+        const resultRow = document.createElement('div')
+        resultRow.className = 'resultRow'
+        
         const nameElement = document.createElement('h2');
         nameElement.textContent = data.filename;
         nameElement.className ='songName'
@@ -27,18 +48,15 @@ document.getElementById('audioFile').addEventListener('change', function() {
         keyElement.textContent = `Key: ${data.key}`; // Set Key safely
         keyElement.className = 'songKey'
 
-        // Append the new elements to the result div
-        resultDiv.appendChild(nameElement);
-        resultDiv.appendChild(bpmElement);
-        resultDiv.appendChild(keyElement);
+        resultRow.appendChild(nameElement);
+        resultRow.appendChild(bpmElement);
+        resultRow.appendChild(keyElement);
+        resultDiv.appendChild(resultRow)
     })
     .catch(error => console.error('Error:', error));
 });
 
 
-
-
-//testing
 
 
 const fakeData = {
@@ -51,8 +69,11 @@ const fakeData = {
 setTimeout(() => {
     // Update the page with fake data
     document.getElementById('result').innerHTML = `
-        <h2 class='songName'>${fakeData.name}</h2>
-        <h2 class='songBpm'>BPM: ${Math.round(fakeData.tempo)}</h2>
-        <h2 class='songKey'>Key: ${fakeData.key}</h2>
+        <div class='resultRow'>
+            <h2 class='songName'>${fakeData.name}</h2>
+            <h2 class='songBpm'>BPM: ${Math.round(fakeData.tempo)}</h2>
+            <h2 class='songKey'>Key: ${fakeData.key}</h2>
+        </div>
+       
     `;
-}, 500); // Simulate a 500ms delay
+}, 500);
