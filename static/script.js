@@ -90,6 +90,9 @@ const fakeDataArray = [
     { name: 'Cool song 8.mp3', tempo: 150, key: 'C# major' },
     { name: 'Cool song 9.mp3', tempo: 145, key: 'E major' },
     { name: 'Cool song 10.mp3', tempo: 155, key: 'G minor' },
+    { name: 'Cool song 8.mp3', tempo: 150, key: 'C# major' },
+    { name: 'Cool song 9.mp3', tempo: 145, key: 'E major' },
+    { name: 'Cool song 10.mp3', tempo: 155, key: 'G minor' },
 ];
 
 // Function to simulate fetching and updating the result

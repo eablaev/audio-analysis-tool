@@ -1,15 +1,15 @@
 :root {
     --main-color: #0073e6; /* Calming blue for primary elements */
-    --secondary-color: #4CAF50; /* A vibrant, yet balanced green */
+    --secondary-color: #ffffff; /* A vibrant, yet balanced green */
     
     --bg-color-one: #f5f7fa; /* Light off-white for background */
     --bg-color-two: #e6eef4; /* Subtle light blue background shade */
-    --bg-color-three: #cce1f2; /* Softer blue accent */
+    --bg-color-three: #97cdf9; /* Softer blue accent */
     
     --font-size: 16px;
     --main-font: 'Segoe UI', Tahoma, Geneva, sans-serif; /* Clean and modern font choice */
 
-    --row-height: 9vh;
+    --row-height: 7vh;
     --border-radius: 6px; /* Slightly rounded for a modern look */
 }
 
@@ -24,11 +24,10 @@
 
 body {
     font-family: var(--main-font);
-    font-size: 16px;
+    /* font-size: 16px; */
     line-height: 1.5;
     color: var(--main-color);
     background-color: var(--bg-color-one);
-    /* background-color: red; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -59,12 +58,10 @@ html, body {
     border-bottom: 2px solid var(--bg-color-three);
 }
 .topContainer > h1 {
-    font-weight: 500;
-    
+    font-weight: 500;  
 }
 
 .centerContainer {
-    min-height: 50vh;
     gap:6vh;
     justify-content:flex-start;
 }
@@ -75,11 +72,11 @@ html, body {
     justify-content: center;
     align-items: center;
     gap: 10px;
+    margin-top: 4vh;
 }
 
 .file-upload-wrapper {
     padding: 3px;
-    /* border: 1px solid red; */
     position: relative;
     width: 100%;
     height: 10vh;
@@ -96,7 +93,6 @@ input[type="file"] {
     height: 100%;
 }
 
-
 .uploadFileBtn {
     display: flex;
     justify-content: center;
@@ -111,19 +107,18 @@ input[type="file"] {
     transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
-    
+    background-color: var(--bg-color-two);
+  
 }
-
 
 input[type="file"]:hover +.uploadFileBtn {
     /* background-color: darken(var(--main-color), 90%); Darker shade on hover */
-    background-color: var(--bg-color-one);
-    border-color: var(--main-color);
+    background-color: var(--bg-color-three);
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
 }
  
-
 .result {
-    border: 1px solid red;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -131,10 +126,9 @@ input[type="file"]:hover +.uploadFileBtn {
     border-radius: var(--border-radius);
     width: 98%;
     background-color: var(--bg-color-three);  
-    padding: 10px 5px;
+    padding: 5px 5px;
     gap: 4px;
-    overflow:scroll;
-    padding-top: var(--row-height);
+
 }
 
 .result:empty {
@@ -145,15 +139,12 @@ input[type="file"]:hover +.uploadFileBtn {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5px 15px;
+    padding: 0 15px;
     border: 1px solid var(--bg-color-two);
     border-radius: var(--border-radius);
     width: 100%;
-    /* height: var(--row-height); */
-    /* background-color: var(--bg-color-one); */
-    background-color: var(--bg-color-two);
-    /* color: white; */
-   
+    min-height: var(--row-height);
+    background-color: var(--bg-color-two); 
 }
 
 .loadingSpinner {
@@ -182,6 +173,7 @@ input[type="file"]:hover +.uploadFileBtn {
     /* border: 1px solid red; */
     font-weight: 200;
     width: 25%;
+    padding: 0px 4px;
 }
 .songName {
     width: 50%;
@@ -190,6 +182,7 @@ input[type="file"]:hover +.uploadFileBtn {
 
 
 .footer {
+    margin-top: 5vh;
      background-color: var(--bg-color-two);
      padding: 4vh 0;
 }
