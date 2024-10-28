@@ -123,13 +123,18 @@ input[type="file"]:hover +.uploadFileBtn {
  
 
 .result {
+    border: 1px solid red;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: var(--border-radius);
     width: 98%;
     background-color: var(--bg-color-three);  
-    padding: 3px;
+    padding: 10px 5px;
+    gap: 4px;
+    overflow:scroll;
+    padding-top: var(--row-height);
 }
 
 .result:empty {
@@ -140,11 +145,11 @@ input[type="file"]:hover +.uploadFileBtn {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 4px;
+    padding: 5px 15px;
     border: 1px solid var(--bg-color-two);
     border-radius: var(--border-radius);
     width: 100%;
-    height: var(--row-height);
+    /* height: var(--row-height); */
     /* background-color: var(--bg-color-one); */
     background-color: var(--bg-color-two);
     /* color: white; */
@@ -174,19 +179,15 @@ input[type="file"]:hover +.uploadFileBtn {
 .songName, 
 .songBpm,
 .songKey {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    /* border: 1px solid red; */
     font-weight: 200;
+    width: 25%;
 }
 .songName {
     width: 50%;
-    /* border: 1px solid red; */
-   justify-content: left;
+
 }
-.songBpm {
-    width: 25%;
-}
+
 
 .footer {
      background-color: var(--bg-color-two);
