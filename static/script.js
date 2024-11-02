@@ -1,33 +1,27 @@
 
 document.getElementById('audioFile').addEventListener('change', function() {
 
-
     const loadingSpinner = document.createElement('div');
     loadingSpinner.id = 'loadingSpinner';
     loadingSpinner.className = 'loadingSpinner';
-    loadingSpinner.style.display = 'flex'; 
 
     const spinner = document.createElement('div');
     spinner.className = 'spinner';
     loadingSpinner.appendChild(spinner); 
 
-    
-    
     const resultDiv = document.getElementById('result');
-    resultDiv.innerHTML = ''; // Clear previous results
-
+    // resultDiv.innerHTML = ''; // Clear previous results
 
     const audioFile = document.getElementById('audioFile');
     const files = audioFile.files;
 
     async function uploadFilesSequentially(files) {
-        
+
         for (const file of files) {
-            resultDiv.appendChild(loadingSpinner)
-            await uploadFile(file); // Wait for each file to finish processing before moving to the next
-            
-        }
-        loadingSpinner.remove()
+            resultDiv.appendChild(loadingSpinner);
+            await uploadFile(file); // Wait for each file to finish processing before moving to the next 
+            loadingSpinner.remove();
+        } 
     }
     
     async function uploadFile(file) {
@@ -42,12 +36,21 @@ document.getElementById('audioFile').addEventListener('change', function() {
             //You need the await keyword before 
             //response.json() because response.json() returns a Promise.
             const data = await response.json();
-    
-            // Process the response data for the current file
             displayResults(data);
         } catch (error) {
             console.error('Error:', error);
         }
+    }
+
+    function formatName(name, maxChar = 30) {
+        // limit the length 
+        
+        // replace all characters that are not letters, numbers, or spaces with a space
+        let formattedName = name.replace(/[^a-zA-Z0-9 ]+/g, ' ');
+        // replace multiple spaces with a single space
+        formattedName = formattedName.replace(/\s+/g, ' ').trim();
+        let shortName = formattedName.length > maxChar ? formattedName.substring(0, maxChar) + "..." : formattedName;
+        return shortName;
     }
     
     function displayResults(data) {
@@ -55,15 +58,15 @@ document.getElementById('audioFile').addEventListener('change', function() {
         resultRow.className = 'resultRow';
     
         const nameElement = document.createElement('h2');
-        nameElement.textContent = data.filename;
+        nameElement.textContent = formatName(data.filename);
         nameElement.className = 'songName';
     
         const bpmElement = document.createElement('h2');
-        bpmElement.textContent = `BPM: ${Math.round(data.tempo)}`;
+        bpmElement.textContent = `${Math.round(data.tempo)} BPM`;
         bpmElement.className = 'songBpm';
     
         const keyElement = document.createElement('h2');
-        keyElement.textContent = `Key: ${data.key}`;
+        keyElement.textContent = `${data.key}`;
         keyElement.className = 'songKey';
     
         resultRow.appendChild(nameElement);
@@ -111,4 +114,4 @@ function simulateFetchingData() {
 }
 
 // Call the function to start simulating
-simulateFetchingData();
+// simulateFetchingData();

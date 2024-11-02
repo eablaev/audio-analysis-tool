@@ -4,12 +4,12 @@
     
     --bg-color-one: #f5f7fa; /* Light off-white for background */
     --bg-color-two: #e6eef4; /* Subtle light blue background shade */
-    --bg-color-three: #97cdf9; /* Softer blue accent */
+    --bg-color-three: #afd6f5; /* Softer blue accent */
     
     --font-size: 16px;
     --main-font: 'Segoe UI', Tahoma, Geneva, sans-serif; /* Clean and modern font choice */
 
-    --row-height: 7vh;
+    --row-height: 4rem;
     --border-radius: 6px; /* Slightly rounded for a modern look */
 }
 
@@ -41,7 +41,6 @@ html, body {
 
 
 .topContainer, .centerContainer, .footer {
-    /* border: 1px solid red; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -55,7 +54,7 @@ html, body {
     justify-content: center;
     align-content: center;
     background-color: var(--bg-color-two);
-    border-bottom: 2px solid var(--bg-color-three);
+    /* border-bottom: 2px solid var(--bg-color-three); */
 }
 .topContainer > h1 {
     font-weight: 500;  
@@ -97,8 +96,9 @@ input[type="file"] {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid var(--bg-color-three);
+    /* border: 1px solid var(--main-color); */
     border-radius: var(--border-radius);
+    box-shadow: 0px 0px 3px 0px var(--main-color);
     padding: auto;
     z-index: -1;
     position: absolute;
@@ -112,10 +112,10 @@ input[type="file"] {
 }
 
 input[type="file"]:hover +.uploadFileBtn {
-    /* background-color: darken(var(--main-color), 90%); Darker shade on hover */
     background-color: var(--bg-color-three);
     border-color: var(--secondary-color);
     color: var(--secondary-color);
+    box-shadow: 0px 0px 5px 1px var(--bg-color-three) ;
 }
  
 .result {
@@ -126,13 +126,14 @@ input[type="file"]:hover +.uploadFileBtn {
     border-radius: var(--border-radius);
     width: 98%;
     background-color: var(--bg-color-three);  
-    padding: 5px 5px;
+    padding: 2px 2px;
     gap: 4px;
+    box-shadow: 0px 0px 4px 0px var(--main-color);
 
 }
 
 .result:empty {
-    padding: none;
+    padding: 0;
 }
 
 .resultRow {
@@ -151,6 +152,7 @@ input[type="file"]:hover +.uploadFileBtn {
     display: flex;
     justify-content: center;
     background-color: var(--bg-color-two);
+    border-radius: var(--border-radius);
     width: 100%;
     align-items: center;
     flex-direction: column;
@@ -165,12 +167,12 @@ input[type="file"]:hover +.uploadFileBtn {
     width: calc(var(--row-height)*.9);
     height: calc(var(--row-height)*.9);
     animation: spin 1s linear infinite;
+   
 }
 
 .songName, 
 .songBpm,
 .songKey {
-    /* border: 1px solid red; */
     font-weight: 200;
     width: 25%;
     padding: 0px 4px;
@@ -179,7 +181,6 @@ input[type="file"]:hover +.uploadFileBtn {
     width: 50%;
 
 }
-
 
 .footer {
     margin-top: 5vh;
@@ -203,12 +204,10 @@ a {
  
     transform: scale(1.1)
    
-    /* font-size: 4em; */
 }
 
   @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
   
