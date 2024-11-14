@@ -94,7 +94,7 @@ def upload_file():
 
 
     # Check if the uploaded file is of a valid type
-    if file.filename.endswith(('.mp3', '.wav', '.aac', '.flac')):
+    if file.filename.endswith(('.mp3', '.wav', '.aac', '.flac','.m4a')):
         filename = secure_filename(file.filename)  # Sanitize the filename
         file_stream = BytesIO(file.read())  # Read the file into memory as a stream
         tempo, key_name = analyze_audio(file_stream)
